@@ -37,5 +37,9 @@ class Settings(BaseSettings):
             f"@{self.database_host}:{self.database_port}/{self.database_name}"
         )
 
+    @property
+    def sqlalchemy_url(self) -> str:
+        return self.database_url.replace("postgresql://", "postgresql+psycopg://", 1)
+
 
 settings = Settings()
