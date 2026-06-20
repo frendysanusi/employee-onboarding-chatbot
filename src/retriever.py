@@ -9,6 +9,7 @@ from pinecone import Index, Pinecone, ServerlessSpec
 
 from config import settings
 from utils.constants import EMBED_DIM, EMBED_MODEL, RERANK_MODEL
+from utils.usage import log_usage
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,6 +53,12 @@ def ensure_index() -> Index:
 
 def embed(texts: list[str]) -> list[list[float]]:
     response = _openai().embeddings.create(model=EMBED_MODEL, input=texts)
+    log_usage(
+        "openai",
+        EMBED_MODEL,
+        input_tokens=response.usage.prompt_tokens,
+        total_tokens=response.usage.total_tokens,
+    )
     return [item.embedding for item in response.data]
 
 
@@ -71,6 +78,9 @@ def search(query: str, candidates: int = 10, top_n: int = 4) -> list[Passage]:
         documents=documents,
         top_n=min(top_n, len(documents)),
     )
+    billed = getattr(getattr(reranked, "meta", None), "billed_units", None)
+    if billed is not None:
+        log_usage("cohere", RERANK_MODEL, search_units=getattr(billed, "search_units", 0) or 0)
     return [
         Passage(
             text=documents[r.index],

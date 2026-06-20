@@ -1,3 +1,7 @@
 EMBED_MODEL = "text-embedding-3-small"
 EMBED_DIM = 1536
 RERANK_MODEL = "rerank-v3.5"
+
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 150
+EMBED_BATCH_SIZE = 100

@@ -7,11 +7,13 @@ dependencies = [
     "bcrypt>=5.0.0",
     "cohere>=7.0.4",
     "faker>=40.23.0",
+    "langchain-text-splitters>=1.1.2",
     "openai>=2.43.0",
     "pinecone>=9.1.0",
     "psycopg-pool>=3.3.1",
     "psycopg[binary]>=3.3.4",
     "pydantic-settings>=2.14.1",
+    "pypdf>=6.13.3",
     "python-dotenv>=1.2.2",
     "sqlalchemy>=2.0.51",
 ]
