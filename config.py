@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     langsmith_tracing: bool = False
     langsmith_api_key: str = ""
     langsmith_project: str = "employee-onboarding-chatbot"
+    langsmith_endpoint: str = ""
 
     @property
     def database_url(self) -> str:

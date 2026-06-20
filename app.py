@@ -15,9 +15,11 @@ from config import settings
 from src.agent.graph import build_agent
 from src.agent.prompts import WELCOME_MESSAGE
 from src.auth import authenticate
+from utils.tracing import configure_tracing
 from utils.usage import log_usage
 
 st.set_page_config(page_title="Umbrella Onboarding Assistant", page_icon="☂️")
+configure_tracing()
 
 
 @st.cache_resource
